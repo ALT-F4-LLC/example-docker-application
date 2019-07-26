@@ -1,0 +1,24 @@
+networks:
+  api:
+services:
+  api:
+    command: node index.js
+    image: node:8.9.4-alpine
+    networks:
+      - api
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/srv/api
+    working_dir: /srv/api
+  postgres:
+    image: postgres:alpine
+    networks:
+      - api
+  redis:
+    image: redis:5.0-alpine
+    networks:
+      - api
+version: "3.6"
+volumes:
+  postgres: {}
